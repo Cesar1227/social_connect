@@ -1,0 +1,37 @@
+    
+    create table profile (
+       porfile_id bigint not null auto_increment,
+        nick_name varchar(255),
+        profile varchar(255),
+        seguidos varbinary(255),
+        telefono varchar(255),
+        user_id bigint,
+        primary key (porfile_id)
+    ) engine=InnoDB
+    
+    create table publications (
+       id bigint not null auto_increment,
+        body varchar(255),
+        date datetime(6),
+        user_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+    
+    create table users (
+       id bigint not null auto_increment,
+        email varchar(255),
+        last_name varchar(255),
+        name varchar(255),
+        password varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+    
+    alter table profile 
+       add constraint FKs14jvsf9tqrcnly0afsv0ngwv 
+       foreign key (user_id) 
+       references users (id)
+    
+    alter table publications 
+       add constraint FK2utvp9h7ybh77dgki0cfw52c1 
+       foreign key (user_id) 
+       references users (id)
