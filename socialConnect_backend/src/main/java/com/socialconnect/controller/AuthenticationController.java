@@ -23,7 +23,7 @@ import com.socialconnect.model.User;
 import com.socialconnect.services.impl.UserDetailsServiceImpl;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins ="*")
 public class AuthenticationController {
 	
 	@Autowired
@@ -34,6 +34,12 @@ public class AuthenticationController {
 
 	@Autowired
 	private JwtUtils jwtUtils;
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/actual-usuario")
+	public User obtenerUsuarioActual2(Principal principal) throws Exception {
+		return (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
+	}
 	
 	@PostMapping("/generate-token")
 	public ResponseEntity<?> generarToken(@RequestBody JwtRequest jwtRequest) throws Exception{
@@ -67,10 +73,14 @@ public class AuthenticationController {
 		}
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/actual-usuario")
-	public User obtenerUsuarioActual(Principal principal) {
+	public User obtenerUsuarioActual(Principal principal) throws Exception {
+		System.out.println("ENTRANDO POR actual-usuario");
 		return (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
 	}
+	
+	
 	
 	public AuthenticationController() {
 		// TODO Auto-generated constructor stub

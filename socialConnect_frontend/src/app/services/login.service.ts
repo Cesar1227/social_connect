@@ -22,7 +22,6 @@ export class LoginService {
 
   //Inicio de sessión y establecimiento del token
   public loginUser(token:any){
-    console.log("token: "+token);
     localStorage.setItem('token',token);
     return true;
   }
@@ -46,11 +45,13 @@ export class LoginService {
 
   //Obtener token
   public getToken(){
-    return localStorage.getItem('token');
+    let token =localStorage.getItem('token');
+    return token;
   }
 
   public setUser(user:any){
     localStorage.setItem('user',JSON.stringify(user));
+    
   }
 
   public getUser(){

@@ -15,19 +15,26 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log("interceptado");
-        let authReq = req;
+
+        if (!req || !req.url) {
+            //console.log("url"+req.url);
+            return next.handle(req);
+        }
+
+        /*
+        if(req.url=='http://localhost:8080/generate-token'){
+            return next.handle(req);
+        }*/
+
         const token = this.loginService.getToken();
-        //console.log("El token en el interceptor es: "+token);
-        if(!!token){
+
+        if(token != null){
             req = req.clone({
                 setHeaders : {
-                    Authorization : 'Bearer ' + token
-                }
-                
+                    Authorization : `Bearer ${ token }`,
+                }          
             });
             
-            //console.log(authReq.headers);
         }
         return next.handle(req);
     }

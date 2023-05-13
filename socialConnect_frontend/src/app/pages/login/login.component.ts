@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
         this.loginService.getCurrentUser().subscribe((user:any) =>{
           this.loginService.setUser(user);
           console.log(user);
+
+
         })
       },(error: any) => {
         console.log(error);

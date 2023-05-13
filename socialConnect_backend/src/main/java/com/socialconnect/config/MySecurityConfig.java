@@ -3,6 +3,7 @@ package com.socialconnect.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -71,15 +72,14 @@ public class MySecurityConfig {
                 .cors()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/generate-token","/usuarios/").permitAll()
+                .requestMatchers("/generate-token","/users/").permitAll()
                 //.anyRequest().permitAll()
-                //.requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
                 
                 http.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
                 
-                
-
+               
        http.authenticationProvider(authenticationProvider());
        //http.headers().frameOptions().sameOrigin();
        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
