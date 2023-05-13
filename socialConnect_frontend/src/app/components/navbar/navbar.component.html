@@ -5,10 +5,28 @@
     <span>Social Connect</span>
       
     <span class="example-spacer"></span>
-    <a [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <a 
+        *ngIf = "!loginService.isLoggedIn()"
+        [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         Log in
     </a>
-    <a [routerLink]="'/signup'" mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="Example icon-button with heart icon">
+    <a 
+        *ngIf = "loginService.isLoggedIn()"
+        (click) = "logout()"
+        [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="Example icon-button with heart icon">
+        Log out
+    </a>
+    <a 
+        *ngIf = "!loginService.isLoggedIn()"
+        [routerLink]="'/signup'"
+        mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="Example icon-button with heart icon">
         Sign up
     </a>
+    <button
+        *ngIf = "loginService.isLoggedIn()"
+        mat-button
+        style="margin-right: 10px;"
+        mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    {{loginService.getUser().name}}
+    </button>
 </mat-toolbar>

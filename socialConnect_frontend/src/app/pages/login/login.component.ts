@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     "password" : ''
   }
 
-  constructor(private snack:MatSnackBar, private loginService:LoginService) { }
+  constructor(private snack:MatSnackBar, private loginService:LoginService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -42,10 +43,21 @@ export class LoginComponent implements OnInit {
           this.loginService.setUser(user);
           console.log(user);
 
-
+          if(user!=null){
+            console.log("user != null - login.components.ts");
+            this.router.navigate(['/dashboard']);
+            //window.location.href = '/dashboard';
+            this.loginService.loginStatusSubjec.next(true);
+          }else{
+            console.log("user === null - login.components.ts, haciendo logout");
+            this.loginService.logout();
+          }
         })
       },(error: any) => {
         console.log(error);
+        this.snack.open('Details invalid, try again !!', 'Acept',{
+          duration:3000
+        })
       }
     )
     

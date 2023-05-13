@@ -3,6 +3,7 @@ package com.socialconnect.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +24,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	/*@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;*/
+	
 	@PostMapping("/createUser")
 	public User saverUser(@RequestBody User user) throws Exception {
 		if(user.getProfile()==null) {
 			return null;
 		}else {
+			//user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 			User userCreated = userService.saveUser(user, user.getProfile());
 			return userCreated;
 		}

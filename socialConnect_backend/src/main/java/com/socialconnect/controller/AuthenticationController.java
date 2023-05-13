@@ -35,11 +35,6 @@ public class AuthenticationController {
 	@Autowired
 	private JwtUtils jwtUtils;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/actual-usuario")
-	public User obtenerUsuarioActual2(Principal principal) throws Exception {
-		return (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
-	}
 	
 	@PostMapping("/generate-token")
 	public ResponseEntity<?> generarToken(@RequestBody JwtRequest jwtRequest) throws Exception{

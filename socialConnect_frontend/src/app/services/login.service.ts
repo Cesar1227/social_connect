@@ -51,7 +51,6 @@ export class LoginService {
 
   public setUser(user:any){
     localStorage.setItem('user',JSON.stringify(user));
-    
   }
 
   public getUser(){
@@ -60,14 +59,15 @@ export class LoginService {
       return JSON.parse(userStr);
     }else{
       this.logout();
+      console.log("no hay user - desde login.service");
       return null;
     }
   }
 
-  public getUserRole(){
+  /*public getUserRole(){
     let user = this.getUser();
     return user.authorities[0].authority;
-  }
+  }*/
 
 
 }

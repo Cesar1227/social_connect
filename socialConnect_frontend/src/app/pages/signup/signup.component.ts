@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -11,23 +12,24 @@ import Swal from 'sweetalert2';
 export class SignupComponent implements OnInit {
 
   public user = {
-    nickName : '',
     password : '',
     name : '',
     lastName : '',
     email : '',
-    cellphone : '',
-    profile : ''
+    profile : {
+      nickName : '',
+      cellphone : '',
+    }
   }
 
-  constructor(private userServices:UserService, private snack:MatSnackBar) { }
+  constructor(private userServices:UserService, private snack:MatSnackBar, private router:Router) { }
 
   ngOnInit(): void {
   }
 
   formSubmit(){
     console.log(this.user);
-    if(this.user.nickName == '' || this.user.nickName == null){
+    if(this.user.profile.nickName == '' || this.user.profile.nickName == null){
       this.snack.open('Username is required','Accept',{
         duration : 3000,
         verticalPosition : 'top',
@@ -47,6 +49,7 @@ export class SignupComponent implements OnInit {
           horizontalPosition : 'right'
         })*/
         //alert('User save successfully');
+        this.router.navigate(['dashboard']);
       }, (error) => {
         console.log(error);
         this.snack.open('An error has occurred in the system','Accept',{

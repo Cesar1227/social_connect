@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -47,9 +48,13 @@ public class MySecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        System.out.println("NO PASSWORD ENCODER: " + NoOpPasswordEncoder.getInstance());
         return NoOpPasswordEncoder.getInstance();
     }
+    /*@Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+
+        return new BCryptPasswordEncoder();
+    }*/
     
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -72,7 +77,7 @@ public class MySecurityConfig {
                 .cors()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/generate-token","/users/").permitAll()
+                .requestMatchers("/generate-token","/users/createUser").permitAll()
                 //.anyRequest().permitAll()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
@@ -87,9 +92,6 @@ public class MySecurityConfig {
        return http.build();
     }
 
-
-	
-	
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
