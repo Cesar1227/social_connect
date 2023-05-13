@@ -24,15 +24,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	/*@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;*/
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping("/createUser")
 	public User saverUser(@RequestBody User user) throws Exception {
 		if(user.getProfile()==null) {
 			return null;
 		}else {
-			//user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+			user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 			User userCreated = userService.saveUser(user, user.getProfile());
 			return userCreated;
 		}

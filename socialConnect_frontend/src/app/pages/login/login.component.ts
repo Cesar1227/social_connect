@@ -43,13 +43,11 @@ export class LoginComponent implements OnInit {
           this.loginService.setUser(user);
           console.log(user);
 
-          if(user!=null){
-            console.log("user != null - login.components.ts");
-            this.router.navigate(['/dashboard']);
+          this.loginService.loginStatusSubjec.next(true);
+          if(this.loginService.getUser()!=null){
             //window.location.href = '/dashboard';
-            this.loginService.loginStatusSubjec.next(true);
+            this.router.navigate(['dashboard']);              
           }else{
-            console.log("user === null - login.components.ts, haciendo logout");
             this.loginService.logout();
           }
         })

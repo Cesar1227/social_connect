@@ -1,7 +1,7 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseURL from './helper';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -58,16 +58,15 @@ export class LoginService {
     if(userStr != null){
       return JSON.parse(userStr);
     }else{
-      this.logout();
-      console.log("no hay user - desde login.service");
+      //this.logout();
       return null;
     }
   }
 
-  /*public getUserRole(){
+  /*
+  public getUserRole(){
     let user = this.getUser();
     return user.authorities[0].authority;
   }*/
-
 
 }

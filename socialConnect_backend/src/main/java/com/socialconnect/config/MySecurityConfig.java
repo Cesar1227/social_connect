@@ -47,14 +47,10 @@ public class MySecurityConfig {
 	}
 
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
-    /*@Bean
     public BCryptPasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder();
-    }*/
+    }
     
     @Bean
     public AuthenticationProvider authenticationProvider() {
