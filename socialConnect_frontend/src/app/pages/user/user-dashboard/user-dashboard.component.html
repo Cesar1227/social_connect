@@ -1,0 +1,48 @@
+<div class = "bootstrap-wrapper">
+    <div class = "container">
+        <div class = "row mt20" style="margin-top: 20px;">
+            <div class = "col-md-12">
+                <mat-card class="mat-card">
+                    <mat-card-content class="col-md-4 " rowHeight="200px" id="mat-content-img">
+                        
+                        <div class="">
+                            <img mat-card-image src= '../../../../assets/img-profile-svg.svg' alt="" width="200px" height="200px"> 
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content class="col-md-8 mat-content pl20" rowHeight="200px" id="mat-content-info">
+                        <div class="row pt20 mt20">
+                            <mat-label>{{this.user.name}} {{this.user.lastName}}</mat-label>
+                        </div>
+                        <div class="row pt10 mt10">
+                            <mat-label>{{this.user.profile.nickName}}</mat-label>
+                        </div>
+                        <div class="row pt20">
+                            <button *ngIf="isCurrentUser()"  mat-raised-button color="primary" width="40px">FOLLOW</button>
+                            <button *ngIf="!isCurrentUser()" mat-raised-button color="primary" width="50px">STOP FOLLOWING</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card class="mat-card mt10 content-publications" id="user_publications" >
+                    <app-create-post></app-create-post>
+                    <mat-card class="card-publication" *ngFor="let publi of user.publications;let indice=index">
+                        <mat-card-header>
+                          <mat-card-title>{{user.publications[indice].title}}</mat-card-title>
+                          <mat-card-subtitle>{{user.publications[indice].date}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <img *ngIf="user.publications[indice].img!=null" class="img_user_profile ml10 mr10"
+                            mat-card-image [src]='user.publications[indice].img'
+                            alt="Photo of the publication">
+                        <mat-card-content>
+                          <p>{{user.publications[indice].body}}</p>
+                        </mat-card-content>
+                        <!--<mat-card-actions>
+                          <button mat-button>LIKE</button>
+                          <button mat-button>SHARE</button>
+                        </mat-card-actions>-->
+                    </mat-card>
+                      
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

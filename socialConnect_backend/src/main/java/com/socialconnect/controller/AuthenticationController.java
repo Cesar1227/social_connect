@@ -68,11 +68,13 @@ public class AuthenticationController {
 		}
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/actual-usuario")
 	public User obtenerUsuarioActual(Principal principal) throws Exception {
-		System.out.println("ENTRANDO POR actual-usuario");
-		return (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
+		//System.out.println("ENTRANDO POR actual-usuario");
+		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
+		user.setPassword(null);
+		return user;
 	}
 	
 	

@@ -1,0 +1,25 @@
+.mat-card{
+    display: flex;
+}
+
+.mat-content{
+    text-align: center;
+}
+
+#mat-content-info{
+    text-align: left;
+    /*padding-top: 30px;*/
+}
+
+.img_user_profile{
+    width: 80px !important;
+    height: 100px !important;
+}
+
+.mat-card.content-publications{
+    display: block !important;
+}
+
+.content-publications > .card-publication{
+    margin-top: 5px !important;
+}

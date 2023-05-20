@@ -1,0 +1,26 @@
+<mat-card class="mat-card mt10 create-publication" id="user_publication" >
+    <!--<mat-label>CREATE NEW POST</mat-label>-->
+
+    <form (ngSubmit) = "newPublication()" class="form_register">
+
+        <mat-form-field class="full-width"  appearance = "outline">
+            <mat-label>Title</mat-label>
+            <input required name="post_title" [(ngModel)]="publication.title" matInput placeholder="write here the title of the post">
+        </mat-form-field>   
+
+        <mat-form-field class="full-width"  appearance = "outline">
+            <mat-label>Body</mat-label>
+            <textarea required name="post_body" matInput [(ngModel)]="publication.body" placeholder="Write here your post"></textarea>
+        </mat-form-field>
+        
+        <div class="full-width">
+            <label>Picture</label>
+            <input type="file" multiple="multiple" (change)="changeFileChooser($event)">
+        </div>
+
+        <div class="container text-center">
+            <button mat-raised-button color="primary">Create Post</button>
+        </div>
+    </form>
+   
+</mat-card>

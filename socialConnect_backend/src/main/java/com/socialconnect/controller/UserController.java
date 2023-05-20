@@ -34,6 +34,7 @@ public class UserController {
 		}else {
 			user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 			User userCreated = userService.saveUser(user, user.getProfile());
+			userCreated.setPassword(null);
 			return userCreated;
 		}
 		
@@ -41,14 +42,16 @@ public class UserController {
 	
 	@GetMapping("/{email}")
 	public User getUser(@PathVariable("email") String email) {
-		
-		return userService.getUser(email);
+		User user = userService.getUser(email);
+		user.setPassword(null);
+		return user;
 	}
 	
 	@GetMapping("/")
 	public List<User> getUsers(){
 		List<User> users = userService.getUsers();
 		for(User p : users) {
+			p.setPassword(null);
 			System.out.println(p.getUsername()+" - "+p.getName()+" - "+p.getLastName());
 		}
 		return users;

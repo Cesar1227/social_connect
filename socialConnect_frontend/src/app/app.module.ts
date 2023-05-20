@@ -15,6 +15,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -22,6 +23,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthInterceptor /*, authInterceptorProviders*/ } from './services/auth.interceptor';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent,
+    UserDashboardComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +52,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatGridListModule
   ],
   providers: [
     {

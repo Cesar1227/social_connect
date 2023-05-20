@@ -20,6 +20,8 @@ export class SignupComponent implements OnInit {
       nickName : '',
       cellphone : '',
     }
+    ,
+    publications: []
   }
 
   constructor(private userServices:UserService, private snack:MatSnackBar, private router:Router) { }

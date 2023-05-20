@@ -12,4 +12,10 @@ export class UserService {
   public addUser(user:any){
     return this.httpClient.post(`${baseURL}/users/createUser`,user);
   }
+
+  public getUser(email:string){
+    return this.httpClient.get(`${baseURL}/users/${email}`);
+  }
+
+
 }

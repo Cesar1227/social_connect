@@ -36,10 +36,10 @@ export class LoginService {
   }
 
   //Cierra sesión y elimina el token del localStorage
-
   public logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    sessionStorage.clear();
     return true;
   }
 
@@ -60,6 +60,14 @@ export class LoginService {
     }else{
       //this.logout();
       return null;
+    }
+  }
+
+  public isMyProfile(user:any):Boolean{
+    if(user.email==this.getUser().email){
+      return true;
+    }else{
+      return false;
     }
   }
 

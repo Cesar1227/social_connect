@@ -7,26 +7,36 @@
     <span class="example-spacer"></span>
     <a 
         *ngIf = "!loginService.isLoggedIn()"
-        [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon" aria-label="icon-button with heart icon">
         Log in
     </a>
     <a 
         *ngIf = "loginService.isLoggedIn()"
-        (click) = "logout()"
-        [routerLink]="'/login'" mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="Example icon-button with heart icon">
-        Log out
+        [routerLink]="'/publication'" mat-icon-button class="example-icon favorite-icon mr40" aria-label="icon-button with heart icon">
+        New post
     </a>
     <a 
         *ngIf = "!loginService.isLoggedIn()"
         [routerLink]="'/signup'"
-        mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="Example icon-button with heart icon">
+        mat-icon-button class="example-icon favorite-icon mr20 ml70" aria-label="icon-button with heart icon">
         Sign up
     </a>
-    <button
+    <span *ngIf = "loginService.isLoggedIn()">
+        <button mat-button [matMenuTriggerFor]="menu">{{loginService.getUser().name}}</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="setUser_viewProfile()">My profile</button>
+            <button [routerLink]="'/user/edit_profile'" mat-menu-item>Edit profile</button>
+            <button mat-menu-item (click) = "logout()" [routerLink]="'/login'" class="example-icon favorite-icon" aria-label="icon-button with heart icon">
+                Log out
+            </button>
+        </mat-menu>
+    </span>
+
+    <!--<button
         *ngIf = "loginService.isLoggedIn()"
         mat-button
         style="margin-right: 10px;"
         mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     {{loginService.getUser().name}}
-    </button>
+    </button>-->
 </mat-toolbar>
