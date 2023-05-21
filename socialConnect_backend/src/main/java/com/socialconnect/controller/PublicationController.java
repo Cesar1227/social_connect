@@ -18,7 +18,7 @@ import com.socialconnect.services.PublicationsService;
 import com.socialconnect.services.UserService;
 
 @RestController
-@RequestMapping("/publicaciones")
+@RequestMapping("/publications")
 @CrossOrigin("*")
 public class PublicationController {
 	
@@ -32,6 +32,7 @@ public class PublicationController {
 	public Publication savePublication(@RequestBody Publication publication) throws Exception{
 		//System.out.println(publication.getUser().getId());
 		//System.out.println(publication.getUser().getEmail());
+		System.out.println("LLega una petición para guardar un post");
 		if(publication.getUser()!=null) {
 			if(publication.getUser().getEmail()!=null) {
 				User user = userService.getUser(publication.getUser().getEmail());

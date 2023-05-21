@@ -63,6 +63,7 @@ export class LoginService {
     }
   }
 
+
   public isMyProfile(user:any):Boolean{
     if(user.email==this.getUser().email){
       return true;

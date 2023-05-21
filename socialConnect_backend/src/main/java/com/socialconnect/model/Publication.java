@@ -27,7 +27,7 @@ public class Publication {
 	private Date date;
 	private String title;
 	private String body;
-	private String img;
+	private String picture;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
@@ -78,14 +78,12 @@ public class Publication {
 		this.title = title;
 	}
 
-	public String getImg() {
-		return img;
+	public String getPicture() {
+		return picture;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
-	
-	
 	
 }

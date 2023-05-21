@@ -12,10 +12,16 @@
             <mat-label>Body</mat-label>
             <textarea required name="post_body" matInput [(ngModel)]="publication.body" placeholder="Write here your post"></textarea>
         </mat-form-field>
+
+        <span hidden="true">
+            <input type="date" matInput [(ngModel)]="publication.date" name="post_date" sele>
+        </span>
         
         <div class="full-width">
-            <label>Picture</label>
-            <input type="file" multiple="multiple" (change)="changeFileChooser($event)">
+            <mat-label>Picture</mat-label>
+            <button type="button" mat-raised-button (click)="fileInput.click()">Choose Picture</button>
+            <input hidden (change)="cargaImg()" #fileInput type="file" id="file">
+            <!--<input type="file" multiple="multiple" (change)="changeFileChooser($event)" name="picture" id="picture">-->
         </div>
 
         <div class="container text-center">

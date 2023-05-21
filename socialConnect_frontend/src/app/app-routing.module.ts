@@ -37,7 +37,7 @@ const routes: Routes = [
     pathMatch : 'full',
   },
   {
-    path : 'user/profile',
+    path : 'user/profile/:userEmail',
     component : UserDashboardComponent,
     pathMatch : 'full',
   },

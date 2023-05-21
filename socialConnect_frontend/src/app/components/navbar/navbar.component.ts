@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
     user = user;
     console.log(user);
     sessionStorage.setItem('userView',JSON.stringify(user));
-    this.router.navigate(['user/profile']);
+    this.router.navigate(['user/profile',user.email]);
   }
 
 }

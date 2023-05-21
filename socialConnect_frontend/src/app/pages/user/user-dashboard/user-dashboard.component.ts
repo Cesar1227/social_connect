@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,12 +28,17 @@ export class UserDashboardComponent implements OnInit {
   }
 
 
-  constructor(private loginService:LoginService) {
+  constructor(private loginService:LoginService, private rutaActiva: ActivatedRoute, private userService:UserService) {
     
   }
 
   ngOnInit(): void {
     this.setUser();
+    //MANEJAR CUALQUIER USUARIO, HACER LA PETICIÓN Y MANEJAR MEDIANTE DE MANERA SINCRONA (MEDIANTE PROMESA)
+  }
+
+  public getUser(userEmail:string){
+    this.user=this.userService.getUserDB(userEmail);
   }
 
   public setUser(){
@@ -39,7 +46,13 @@ export class UserDashboardComponent implements OnInit {
 
     if(userSession==null){
       console.log("no hay user - user dashboard");
-      Swal.fire('User not found','Has ocurred a problem','error');
+      
+      let localstora = localStorage.getItem('user');
+      if(localstora!=null){
+        this.user=JSON.parse(localstora);
+      }else{
+        Swal.fire('User not found','Has ocurred a problem','error');
+      }
     }else{
       this.user = JSON.parse(userSession);
       sessionStorage.removeItem('userView');

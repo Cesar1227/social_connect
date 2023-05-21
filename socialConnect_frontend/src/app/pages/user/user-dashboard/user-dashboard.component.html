@@ -29,8 +29,8 @@
                           <mat-card-title>{{user.publications[indice].title}}</mat-card-title>
                           <mat-card-subtitle>{{user.publications[indice].date}}</mat-card-subtitle>
                         </mat-card-header>
-                        <img *ngIf="user.publications[indice].img!=null" class="img_user_profile ml10 mr10"
-                            mat-card-image [src]='user.publications[indice].img'
+                        <img *ngIf="user.publications[indice].picture!=null" class="img_user_profile ml10 mr10"
+                            mat-card-image [src]='user.publications[indice].picture'
                             alt="Photo of the publication">
                         <mat-card-content>
                           <p>{{user.publications[indice].body}}</p>
