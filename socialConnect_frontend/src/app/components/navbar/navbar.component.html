@@ -1,5 +1,5 @@
 <mat-toolbar color = 'primary'>
-    <a [routerLink] = "'/'" mat-icon-button class = "example-icon" aria-label="Example icon-button with menu icon">
+    <a [routerLink] = "'/dashboard'" mat-icon-button class = "example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>diversity_3</mat-icon>
     </a>
     <span>Social Connect</span>
@@ -12,7 +12,7 @@
     </a>
     <a 
         *ngIf = "loginService.isLoggedIn()"
-        [routerLink]="'/publication'" mat-icon-button class="example-icon favorite-icon mr40" aria-label="icon-button with heart icon">
+        [routerLink]="'/dashboard'" mat-icon-button class="example-icon favorite-icon mr40" aria-label="icon-button with heart icon">
         New post
     </a>
     <a 
@@ -24,7 +24,7 @@
     <span *ngIf = "loginService.isLoggedIn()">
         <button mat-button [matMenuTriggerFor]="menu">{{loginService.getUser().name}}</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="setUser_viewProfile()">My profile</button>
+            <button mat-menu-item (click)="setUser_viewProfile()">My profile</button>  <!--this.router.navigate(['user/profile',user.email]);-->
             <button [routerLink]="'/user/edit_profile'" mat-menu-item>Edit profile</button>
             <button mat-menu-item (click) = "logout()" [routerLink]="'/login'" class="example-icon favorite-icon" aria-label="icon-button with heart icon">
                 Log out

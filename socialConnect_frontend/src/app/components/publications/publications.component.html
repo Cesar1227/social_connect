@@ -1,0 +1,21 @@
+<!--<mat-card class="mat-card mt10 content-publications" id="user_publications" >-->
+    <app-create-post></app-create-post>
+    <mat-card class="card-publication" *ngFor="let publi of user.publications;let indice=index">
+        <mat-card-header>
+          <mat-card-title>{{user.publications[indice].title}}</mat-card-title>
+          <mat-card-subtitle>{{user.publications[indice].date}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <img *ngIf="user.publications[indice].picture!=null" class="img_user_profile ml10 mr10"
+            mat-card-image [src]='user.publications[indice].picture'
+            alt="Photo of the publication">
+            <p>{{user.publications[indice].body}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+    </mat-card>
+      
+<!--</mat-card>-->

@@ -26,6 +26,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { PublicationsComponent } from './components/publications/publications.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     DashboardComponent,
     ProfileComponent,
     UserDashboardComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    PublicationsComponent
   ],
   imports: [
     BrowserModule,

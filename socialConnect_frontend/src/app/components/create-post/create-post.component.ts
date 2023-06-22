@@ -34,6 +34,7 @@ export class CreatePostComponent implements OnInit {
     console.log("Event chageFile: ",event.target.files);
   }
 
+  //Este metodo debe manejarse como un evento mediante un EventEmitter
   newPublication(){
     this.publication.date=this.hourPublication();
     //let user:any = localStorage.getItem('user');
@@ -47,7 +48,9 @@ export class CreatePostComponent implements OnInit {
       this.loginService.getCurrentUser().subscribe((user:any) =>{
         this.loginService.setUser(user);
         console.log(user);
-        this.router.navigate(['/user/profile']);
+        this.loginService.setUser(this.userService.getUser(this.publication.user.email));
+        this.router.navigate(['/user/profile',this.userService.getUser(this.publication.user.email)]);
+
       })
 
     },(error: any) => {

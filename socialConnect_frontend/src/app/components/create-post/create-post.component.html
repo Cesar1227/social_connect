@@ -10,7 +10,7 @@
 
         <mat-form-field class="full-width"  appearance = "outline">
             <mat-label>Body</mat-label>
-            <textarea required name="post_body" matInput [(ngModel)]="publication.body" placeholder="Write here your post"></textarea>
+            <textarea name="post_body" matInput [(ngModel)]="publication.body" placeholder="Write here your post"></textarea>
         </mat-form-field>
 
         <span hidden="true">
@@ -24,7 +24,7 @@
             <!--<input type="file" multiple="multiple" (change)="changeFileChooser($event)" name="picture" id="picture">-->
         </div>
 
-        <div class="container text-center">
+        <div class="container text-right">
             <button mat-raised-button color="primary">Create Post</button>
         </div>
     </form>
