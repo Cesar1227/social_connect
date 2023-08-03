@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import baseURL from './helper';
 import Swal from 'sweetalert2';
+import { Cuser, Iuser } from '../model/iuser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  //private user:Iuser;
 
   constructor(private httpClient:HttpClient) { }
 
@@ -25,16 +28,22 @@ export class UserService {
 
   public getUserDB(email:string):any{
     this.getUser(email).subscribe((user:any) =>{
-      console.log("From userService: ",user);
       //this.loginService.loginStatusSubjec.next(true);
       if(user!=null){
         //window.location.href = '/dashboard';
         return user;
       }else{
-        Swal.fire('User not found','Has ocurred a problem','error');
         return null;
       }
     })
+  }
+
+  public getUserDBByNickName(nickname:string):any{
+    this.getUser(nickname).subscribe((user:any) =>{
+      //this.loginService.loginStatusSubjec.next(true);
+      return user;
+    })
+    return null;
   }
 
 

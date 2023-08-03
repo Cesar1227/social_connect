@@ -7,4 +7,14 @@ mat-tolbar > a{
     display: flex;
     justify-content: flex-end;
     margin-right: 60px;
+    font-size: var(--font-size-button-type-1);
+}
+
+a.mat-icon-button,
+.mat-button{
+    font-size: var(--font-size-button-type-1);
+}
+
+mat-toolbar{
+    font-size: var(--font-size-main);
 }

@@ -1,5 +1,17 @@
+mat-card{
+    --font-size-content-card:13pt;
+}
+
 .card-publication{
     margin-top: 1%;
+}
+
+.mat-card-title{
+    font-size: var(--font-size-main) !important;
+}
+
+.card-publication > .mat-card-content{
+    font-size: var(--font-size-main);
 }
 
 img{
@@ -24,6 +36,12 @@ img{
 
 .mat-card>.mat-card-actions{
     text-align: right;
+    
+}
+
+button[mat-button],
+button[mat-raised-button]{
+    font-size: var(--font-size-button-type-1);
 }
 
 .mat-card-content{
@@ -31,4 +49,5 @@ img{
     justify-content: space-around;
     align-items: flex-start;
     margin-top: 2%;
+    font-size: var(--font-size-content-card) !important;
 }

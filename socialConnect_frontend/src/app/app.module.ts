@@ -27,6 +27,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { PublicationsComponent } from './components/publications/publications.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { VisitProfileComponent } from './components/visit-profile/visit-profile.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { PublicationsComponent } from './components/publications/publications.co
     ProfileComponent,
     UserDashboardComponent,
     CreatePostComponent,
-    PublicationsComponent
+    PublicationsComponent,
+    SearchBarComponent,
+    VisitProfileComponent
   ],
   imports: [
     BrowserModule,

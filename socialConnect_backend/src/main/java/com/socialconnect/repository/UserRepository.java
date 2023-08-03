@@ -9,5 +9,6 @@ import com.socialconnect.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	public User findByname(String username);
 	public User findByemail(String email);
+	//public User findBynickName(String nickName);
 	public List<User> findAll();
 }

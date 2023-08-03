@@ -35,7 +35,7 @@ public class SocialConnectApplication implements CommandLineRunner {
 		user.setPassword("root");
 		Profile profile = new Profile();
 		profile.setNickName("Bonicesar");
-		profile.setTelefono("1111111");
+		profile.setCellphone("1111111");
 		profile.setProfile("foto.png");
 		profile.setUser(user);
 		user.setProfile(profile);

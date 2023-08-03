@@ -24,9 +24,9 @@ public class Profile {
 	
 	private String nickName;
 	
-	private String telefono;
+	private String cellphone;
 	private String profile;
-	private List<User> seguidos;
+	private List<User> follows;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -52,12 +52,12 @@ public class Profile {
 		this.nickName = nickName;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public String getCellphone() {
+		return cellphone;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 
 	public String getProfile() {
@@ -68,12 +68,12 @@ public class Profile {
 		this.profile = profile;
 	}
 
-	public List<User> getSeguidos() {
-		return seguidos;
+	public List<User> getFollows() {
+		return follows;
 	}
 
-	public void setSeguidos(List<User> seguidos) {
-		this.seguidos = seguidos;
+	public void setFollows(List<User> follows) {
+		this.follows = follows;
 	}
 
 	@JsonBackReference

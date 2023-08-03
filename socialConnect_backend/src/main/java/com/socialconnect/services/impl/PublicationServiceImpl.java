@@ -60,7 +60,12 @@ public class PublicationServiceImpl implements PublicationsService {
 	@Override
 	public void deletePublication(long id) {
 		publicationsRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Publication> getDashboardPublications(User user) {
 		
+		return null;
 	}
 
 }

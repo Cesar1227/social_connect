@@ -10,5 +10,6 @@ public interface PublicationsService {
 	public Publication savePublication(Publication publication) throws Exception;
 	public Publication getPublication(Long id);
 	public List<Publication> getPublications(User user);
+	public List<Publication> getDashboardPublications(User user);
 	public void deletePublication(long id);
 }

@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PublicationsComponent implements OnInit {
 
+  @Input() public createPost_isVisible:boolean = true;
+
   public publications : any = {
 
   } 
@@ -27,6 +29,7 @@ export class PublicationsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

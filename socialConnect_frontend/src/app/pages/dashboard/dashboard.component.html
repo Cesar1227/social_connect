@@ -2,7 +2,10 @@
     <div class="container">
         <div class="row">
             <div class = "col-md-12">
-                <app-create-post></app-create-post>
+                <app-search-bar (paginaEmitter)="buscarUser($event)"></app-search-bar>
+                <app-create-post *ngIf=true></app-create-post>
+                <app-user-dashboard *ngIf="discover_people" [createPost_isVisible]="createPost_isVisible" [to_visit]=true [user_nickName]="user_nickName"></app-user-dashboard>
+                <!--<app-publications></app-publications>-->
             </div>
         </div>
     </div>

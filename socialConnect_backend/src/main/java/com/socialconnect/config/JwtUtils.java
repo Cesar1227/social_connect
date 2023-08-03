@@ -41,10 +41,13 @@ public class JwtUtils {
 	    }
 
 	    private String createToken(Map<String, Object> claims, String subject) {
+	    	//System.out.println("[JwtUtils] System currentTime"+new Date(System.currentTimeMillis() + 1000 * 10));
 
 	        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 	                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
 	                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+	        //.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+	        
 	    }
 
 	    public Boolean validateToken(String token, UserDetails userDetails) {

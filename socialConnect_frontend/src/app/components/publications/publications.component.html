@@ -1,7 +1,7 @@
 <!--<mat-card class="mat-card mt10 content-publications" id="user_publications" >-->
-    <app-create-post></app-create-post>
+    <app-create-post *ngIf="createPost_isVisible"></app-create-post>
     <mat-card class="card-publication" *ngFor="let publi of user.publications;let indice=index">
-        <mat-card-header>
+        <mat-card-header class="mat-card-header">
           <mat-card-title>{{user.publications[indice].title}}</mat-card-title>
           <mat-card-subtitle>{{user.publications[indice].date}}</mat-card-subtitle>
         </mat-card-header>

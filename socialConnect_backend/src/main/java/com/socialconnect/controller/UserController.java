@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.socialconnect.model.Profile;
 import com.socialconnect.model.User;
+import com.socialconnect.services.ProfileService;
 import com.socialconnect.services.UserService;
 
 @RestController
@@ -23,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProfileService profileService;
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -40,9 +45,26 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/{email}")
+	/*@GetMapping("/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		User user = userService.getUser(email);
+		user.setPassword(null);
+		return user;
+	}*/
+	
+	@GetMapping("/{keyFoundUser}")
+	public User getUser(@PathVariable("keyFoundUser") String keyFoundUser) {
+		User user = userService.getUser(keyFoundUser);
+		if(user==null) {
+			Profile profile= profileService.getUserByNickName(keyFoundUser);
+			if(profile!=null) {
+				//user = userService.getUserByNickName(keyFoundUser);
+				System.out.println("[UserController] este es mi perfil: "+profile.getUser().getUsername());
+				user=profile.getUser();
+			}else {
+				return user;
+			}
+		}
 		user.setPassword(null);
 		return user;
 	}
