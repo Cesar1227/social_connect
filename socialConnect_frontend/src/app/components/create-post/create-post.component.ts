@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { rejects } from 'assert';
+import { Iuser } from 'src/app/model/iuser';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -41,25 +42,29 @@ export class CreatePostComponent implements OnInit {
     let user = this.loginService.getUser();
     this.publication.user.id = user.id;
     this.publication.user.email = user.email;
-    console.log(this.publication);
+    //console.log(this.publication);
     console.log("llamando al servicio publicación");
+    let userTest;
     this.userService.addPublication(this.publication).subscribe((data:any) => {
       console.log("respuesta addPost: ",data);
-      this.loginService.getCurrentUser().subscribe((user:any) =>{
+      this.loginService.getCurrentUser().then((user:any) =>{
         this.loginService.setUser(user);
-        console.log(user);
-        this.loginService.setUser(this.userService.getUser(this.publication.user.email));
-        this.router.navigate(['/user/profile',this.userService.getUser(this.publication.user.email)]);
+        console.log("[create-post] user return for actual-usuario: "+user.email);
+        //this.loginService.setUser(this.userService.getUser(this.publication.user.email));
+        //this.router.navigate(['/user/profile',user.profile.nickName]);
 
-      })
+        //Actualizar bandeja de publicaciones
 
-    },(error: any) => {
-      console.log(error);
-      this.snack.open('Post invalid, try again !!', 'Acept',{
-        duration:3000
-      })
-    }
-    )
+        userTest = data;
+      }),
+      (error: any) => {
+        console.log(error);
+        this.snack.open('Post invalid, try again !!', 'Acept',{
+          duration:3000
+        })
+      }
+    })
+    console.log("[create-post] Aparece wey: "+userTest);
   }
 
   private hourPublication(): string{

@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService{
 			System.out.println("El usuario ya existe");
 		}else {
 			userLocal = userRepo.save(user);
+			//profile.setFollows(new ArrayList<>());
 			Profile profileLocal = profileRepo.save(profile);
 			userLocal.setProfile(profileLocal);
 		}

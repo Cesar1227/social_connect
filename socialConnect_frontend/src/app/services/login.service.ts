@@ -1,7 +1,8 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseURL from './helper';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, lastValueFrom } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,24 +11,26 @@ export class LoginService {
 
   public loginStatusSubjec = new Subject<boolean>();
 
-  constructor(private http:HttpClient) {}
+  constructor(private http:HttpClient, private userService:UserService) {}
 
   public generateToken(loginData:any){
     return this.http.post(`${baseURL}/generate-token`,loginData);
   }
 
-  public getCurrentUser(){
-    return this.http.get(`${baseURL}/actual-usuario`);
+  public async getCurrentUser(){
+    let response$ = this.http.get(`${baseURL}/actual-usuario`);
+    let response = await lastValueFrom(response$);
+    return response;
   }
 
   //Inicio de sessión y establecimiento del token
   public loginUser(token:any){
-    localStorage.setItem('token',token);
+    sessionStorage.setItem('token',token);
     return true;
   }
 
   public isLoggedIn(){
-    let tokenStr = localStorage.getItem('token');
+    let tokenStr = sessionStorage.getItem('token');
     if(tokenStr == undefined || tokenStr == '' || tokenStr == null){
       return false;
     }else{
@@ -37,24 +40,26 @@ export class LoginService {
 
   //Cierra sesión y elimina el token del localStorage
   public logout(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     sessionStorage.clear();
     return true;
   }
 
   //Obtener token
   public getToken(){
-    let token =localStorage.getItem('token');
+    let token =sessionStorage.getItem('token');
     return token;
   }
 
   public setUser(user:any){
-    localStorage.setItem('user',JSON.stringify(user));
+    //console.log("[login.service] user llegando"+user)
+    //console.log("[login.service] user cargando"+JSON.stringify(user))
+    sessionStorage.setItem('user',JSON.stringify(user));
   }
 
   public getUser(){
-    let userStr = localStorage.getItem('user');
+    let userStr = sessionStorage.getItem('user');
     if(userStr != null){
       return JSON.parse(userStr);
     }else{
@@ -70,6 +75,19 @@ export class LoginService {
     }else{
       return false;
     }
+  }
+
+  public updateCurrentUser(){
+    this.userService.getUserDB(this.getUser().email).then((response:any) =>{
+      console.log("[login.service] user: "+response.email+"|"+response.profile.follows);
+      if(response!=null && response!=undefined){
+        this.setUser(response);
+        return response;
+      }else{
+        console.log("Es null o undefined");
+      }
+    });
+    return null;
   }
 
   /*

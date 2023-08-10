@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(loginService:LoginService, router:Router) {
+    if (loginService.getUser()!=null) {
+      router.navigate(['/dashboard']);
+    }
+   }
 
   ngOnInit(): void {
   }

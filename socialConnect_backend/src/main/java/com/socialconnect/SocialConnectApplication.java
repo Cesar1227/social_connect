@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.socialconnect.model.Profile;
@@ -12,8 +13,15 @@ import com.socialconnect.model.Publication;
 import com.socialconnect.model.User;
 import com.socialconnect.services.PublicationsService;
 import com.socialconnect.services.UserService;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableAutoConfiguration
+@EnableJpaRepositories
+@ComponentScan(basePackages = "com.socialconnect.repository")
+@ComponentScan(basePackages = "com.socialconnect.services")
 public class SocialConnectApplication implements CommandLineRunner {
 	
 	@Autowired

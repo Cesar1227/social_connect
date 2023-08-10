@@ -74,6 +74,7 @@ public class AuthenticationController {
 		//System.out.println("ENTRANDO POR actual-usuario");
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
 		user.setPassword(null);
+		System.out.println("[AuthenticationController] Actual user: "+user.toString());
 		return user;
 	}
 	
