@@ -1,6 +1,6 @@
 *.metadata/
-application.properties
-application.yml
+*.application.properties
+*.application.yml
 
 HELP.md
 target/

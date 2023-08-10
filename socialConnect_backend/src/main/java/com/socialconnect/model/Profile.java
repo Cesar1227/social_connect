@@ -4,15 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Profile")
@@ -20,13 +12,16 @@ public class Profile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long porfileId;
+	private Long profileId;
 	
 	private String nickName;
 	
 	private String cellphone;
 	private String profile;
 	private List<String> follows;
+
+	@Transient
+	private String urlPhoto;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -36,12 +31,12 @@ public class Profile {
 		
 	}
 
-	public Long getPorfileId() {
-		return porfileId;
+	public Long getProfileId() {
+		return profileId;
 	}
 
-	public void setPorfileId(Long porfileId) {
-		this.porfileId = porfileId;
+	public void setProfileId(Long profileId) {
+		this.profileId = profileId;
 	}
 
 	public String getNickName() {
@@ -84,6 +79,12 @@ public class Profile {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
+	public String getUrlPhoto() {
+		return urlPhoto;
+	}
+
+	public void setUrlPhoto(String urlPhoto) {
+		this.urlPhoto = urlPhoto;
+	}
 }
