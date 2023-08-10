@@ -3,6 +3,7 @@ package com.socialconnect.config;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
-		//System.out.println("Iniciando doFilterInternal");
+		System.out.println("Iniciando doFilterInternal");
 		String requestTokenHeader = request.getHeader("Authorization");
 		System.out.println(requestTokenHeader);
 		String username = null;
@@ -41,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			
 			jwtToken = requestTokenHeader.substring(7); //Descartando "Bearer "
 			//jwtToken = requestTokenHeader;
-			//System.out.println(jwtToken);
+			System.out.println(jwtToken);
 			try {
 				username = this.jwtUtils.extractUsername(jwtToken);
 			}catch(ExpiredJwtException expiredJwtException) {

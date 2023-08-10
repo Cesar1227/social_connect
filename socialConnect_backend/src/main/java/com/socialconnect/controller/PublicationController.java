@@ -32,11 +32,9 @@ public class PublicationController {
 	public Publication savePublication(@RequestBody Publication publication) throws Exception{
 		//System.out.println(publication.getUser().getId());
 		//System.out.println(publication.getUser().getEmail());
+		System.out.println("LLega una petición para guardar un post");
 		if(publication.getUser()!=null) {
 			if(publication.getUser().getEmail()!=null) {
-				if(publication.getPicture()=="") {
-					publication.setPicture(null);
-				}
 				User user = userService.getUser(publication.getUser().getEmail());
 				publication.setUser(user);
 			}

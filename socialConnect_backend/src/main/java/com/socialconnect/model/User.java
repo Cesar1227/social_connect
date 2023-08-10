@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -97,12 +99,6 @@ public class User implements UserDetails {
 
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", password="
-				+ password + ", profile=" + profile + ", publications=" + publications + "]";
 	}
 
 	@Override

@@ -1,24 +1,20 @@
 package com.socialconnect.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.socialconnect.model.Profile;
 import com.socialconnect.repository.ProfileRepository;
-import com.socialconnect.repository.UserRepository;
 import com.socialconnect.services.ProfileService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
 	
 	@Autowired
 	private ProfileRepository profileRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
 
 	public ProfileServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -47,7 +43,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Profile stopFollowing(String current_user, String nickNameToStopfollow) {
 		if(profileRepository.existsByNickName(nickNameToStopfollow)) {
@@ -57,7 +53,7 @@ public class ProfileServiceImpl implements ProfileService {
 				if(follows==null) {
 					return null;
 				}
-				
+
 				boolean removed = follows.remove(nickNameToStopfollow);
 				//follows.add(nickNameToFollow);
 				if(removed) {
@@ -71,5 +67,4 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		return null;
 	}
-
 }
