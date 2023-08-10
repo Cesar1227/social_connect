@@ -37,12 +37,11 @@ export class LoginComponent implements OnInit {
 
     this.loginService.generateToken(this.loginData).subscribe(
       (data:any)=>{
-        console.log(data);
+        //console.log(data);
         this.loginService.loginUser(data.token);
-        this.loginService.getCurrentUser().subscribe((user:any) =>{
+        this.loginService.getCurrentUser().then((user:any) =>{
           this.loginService.setUser(user);
-          console.log(user);
-
+          //console.log(user);
           this.loginService.loginStatusSubjec.next(true);
           if(this.loginService.getUser()!=null){
             //window.location.href = '/dashboard';

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import baseURL from './helper';
 import Swal from 'sweetalert2';
 import { Cuser, Iuser } from '../model/iuser';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,35 +12,46 @@ export class UserService {
 
   //private user:Iuser;
 
-  constructor(private httpClient:HttpClient) { }
-
-  public addUser(user:any){
-    return this.httpClient.post(`${baseURL}/users/createUser`,user);
+  constructor(private httpClient: HttpClient) {
   }
 
-  public getUser(email:string){
+  public addUser(user: any) {
+    return this.httpClient.post(`${baseURL}/users/createUser`, user);
+  }
+
+  private getUser(email:string){
     return this.httpClient.get(`${baseURL}/users/${email}`);
   }
 
-  public addPublication(post:any){
-    console.log("enviando petición desde userService");
+  private getUser2(email:string){
+    return this.httpClient.get(`${baseURL}/users/${email}`).subscribe(
+      (user:any) => {
+        return user;
+      }
+    );
+  }
+
+  public addPublication(post: any) {
     return this.httpClient.post(`${baseURL}/publications`, post);
   }
 
-  public getUserDB(email:string):any{
-    this.getUser(email).subscribe((user:any) =>{
+  public async getUserDB(email: string): Promise<any> {
+    //return this.getUser(email);
+    let data2$ = this.getUser(email);
+    let data2 = await lastValueFrom(data2$);
+    console.log("[user.service] Usuario devuelvo lastValue: "+data2.valueOf());
+    return data2;
+
+   /* let data;
+    this.getUser(email).subscribe(async (user: any) => {
       //this.loginService.loginStatusSubjec.next(true);
-      if(user!=null){
-        //window.location.href = '/dashboard';
-        return user;
-      }else{
-        return null;
-      }
-    })
+      data = await lastValueFrom(user);
+    });
+    return data;*/
   }
 
-  public getUserDBByNickName(nickname:string):any{
-    this.getUser(nickname).subscribe((user:any) =>{
+  public getUserDBByNickName(nickname: string): any {
+    this.getUser(nickname).subscribe((user: any) => {
       //this.loginService.loginStatusSubjec.next(true);
       return user;
     })

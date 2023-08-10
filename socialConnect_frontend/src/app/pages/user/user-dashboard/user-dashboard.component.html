@@ -3,22 +3,21 @@
         <div class = "row mt20" style="margin-top: 20px;">
             <div class = "col-md-12 mb-r2">
                 <mat-card class="mat-card">
-                    <mat-card-content class="col-md-4 " rowHeight="200px" id="mat-content-img">
-                        
+                    <mat-card-content class="col-md-4 " rowHeight="200px" id="mat-content-img">               
                         <div class="">
                             <img mat-card-image src= '../../../../assets/img-profile-svg.svg' alt="" width="200px" height="200px"> 
                         </div>
                     </mat-card-content>
-                    <mat-card-content class="col-md-8 mat-content pl20" rowHeight="200px" id="mat-content-info">
+                    <mat-card-content *ngIf="this.user!=null" class="col-md-8 mat-content pl20" rowHeight="200px" id="mat-content-info">
                         <div class="row pt20 mt20">
                             <mat-label>{{this.user.name}} {{this.user.lastName}}</mat-label>
                         </div>
                         <div class="row pt10 mt10">
                             <mat-label>{{this.user.profile.nickName}}</mat-label>
                         </div>
-                        <div class="row pt20">
-                            <button *ngIf="isCurrentUser()"  mat-raised-button color="primary" width="40px">FOLLOW</button>
-                            <button *ngIf="!isCurrentUser()" mat-raised-button color="primary" width="50px">STOP FOLLOWING</button>
+                        <div *ngIf="!isCurrentUser()" class="row pt20">
+                            <button *ngIf="!is_followed"  mat-raised-button color="primary" width="40px" (click)="followUser()">FOLLOW</button>
+                            <button *ngIf="is_followed" mat-raised-button color="primary" width="50px" (click)="stopFollowing()">STOP FOLLOWING</button>
                         </div>
                     </mat-card-content>
                 </mat-card>

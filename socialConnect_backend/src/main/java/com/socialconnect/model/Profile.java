@@ -26,7 +26,7 @@ public class Profile {
 	
 	private String cellphone;
 	private String profile;
-	private List<User> follows;
+	private List<String> follows;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -68,11 +68,11 @@ public class Profile {
 		this.profile = profile;
 	}
 
-	public List<User> getFollows() {
+	public List<String> getFollows() {
 		return follows;
 	}
 
-	public void setFollows(List<User> follows) {
+	public void setFollows(List<String> follows) {
 		this.follows = follows;
 	}
 
