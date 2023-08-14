@@ -37,6 +37,18 @@ export class ProfileService {
       }); */
   }
 
+  public async setPictureProfile(picture:File, nickName:string){
+    const url = `${baseURL}/profile/setPhoto`;
+    const dataFile:FormData = new FormData();
+    dataFile.append("file",picture);
+    dataFile.append("nickName",nickName);
+    let response :any;
+    //let response$ = this.httpClient.post(url, dataFile, { headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }) });
+    let response$ = this.httpClient.post(url, dataFile);
+    response = await lastValueFrom(response$); 
+    return response;
+  }
+
   public async stopFollowingUser(current_user:string, nickNameToStopfollow:string){
     const url = `${baseURL}/profile/stopFollowUser`;
     const parametros = `current_user=${current_user}&nickNameToStopfollow=${nickNameToStopfollow}`;

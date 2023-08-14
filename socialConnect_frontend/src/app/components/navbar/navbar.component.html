@@ -1,6 +1,6 @@
 <mat-toolbar color = 'primary'>
     <a [routerLink] = "'/dashboard'" mat-icon-button class = "example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>diversity_3</mat-icon>
+        <mat-icon matTooltip="Go to dashboard">diversity_3</mat-icon>
     </a>
     <span>Social Connect</span>
       
@@ -22,8 +22,9 @@
         Sign up
     </a>
     <span *ngIf = "loginService.isLoggedIn()">
-        <button class="mat-button" mat-button [matMenuTriggerFor]="menu">{{loginService.getUser().name}}</button>
+        <button *ngIf="this.userName!=null" class="mat-button" mat-button [matMenuTriggerFor]="menu">{{this.userName}}</button>
         <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="'/dashboard'">Dashboard</button>
             <button mat-menu-item (click)="setUser_viewProfile()">My profile</button>  <!--this.router.navigate(['user/profile',user.email]);-->
             <button [routerLink]="'/user/edit_profile'" mat-menu-item>Edit profile</button>
             <button mat-menu-item (click) = "logout()" [routerLink]="'/login'" class="example-icon favorite-icon" aria-label="icon-button with heart icon">

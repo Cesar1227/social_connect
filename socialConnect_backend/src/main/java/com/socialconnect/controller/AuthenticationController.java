@@ -2,6 +2,7 @@ package com.socialconnect.controller;
 
 import java.security.Principal;
 
+import com.socialconnect.model.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -73,6 +74,7 @@ public class AuthenticationController {
 	public User obtenerUsuarioActual(Principal principal) throws Exception {
 		//System.out.println("ENTRANDO POR actual-usuario");
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
+		user.getProfile().setUrlPhoto(new S3Service().getObjectUrl(user.getProfile().getKeyProfile()));
 		user.setPassword(null);
 		return user;
 	}

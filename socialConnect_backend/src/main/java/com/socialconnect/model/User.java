@@ -3,21 +3,11 @@ package com.socialconnect.model;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Users")
@@ -36,6 +26,9 @@ public class User implements UserDetails {
 	private String lastName;
 	private String email;
 	private String password;
+
+	@Column(columnDefinition = "BOOLEAN DEFAULT true")
+	private boolean enabled = true;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	private Profile profile;
@@ -82,7 +75,11 @@ public class User implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@JsonManagedReference
 	public Profile getProfile() {
 		return profile;
@@ -138,7 +135,11 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.enabled;
 	}
-	
+
+	@Override
+	public String toString() {
+		return this.getEmail()+ " - " +this.getName()+" - "+this.getUsername()+this.getProfile().getNickName()+" - "+this.getProfile().getProfile();
+	}
 }

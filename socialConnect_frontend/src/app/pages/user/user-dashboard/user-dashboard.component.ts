@@ -45,7 +45,8 @@ export class UserDashboardComponent implements OnInit {
       nickName: '',
       cellphone: '',
       profile: '',
-      follows: Array()
+      follows: Array(),
+      urlPhoto: ''
     },
     publications: Array()
   }
@@ -56,16 +57,14 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     //this.ngOnChanges();
-    console.log("[user-dashboard] Cargando desde ngOnInit");
-    this.foundAndVisualizeUsers();
+
+    if (!this.to_visit) {
+      this.foundAndVisualizeUsers();
+    }
   }
 
   ngOnChanges() {
-    console.log("[user-dashboard] cargando desde ngOnChanges");
     this.foundAndVisualizeUsers();
-    console.log("[user-dashboard] user_nickName_to_visit: " + this.user_nickName_to_visit);
-    console.log("[user-dashboard] user.profile.nickName: " + this.user.profile.nickName);
-    console.log("[user-dashboard] nick_current_user: " + this.nick_current_user);
   }
 
   /**
@@ -73,22 +72,18 @@ export class UserDashboardComponent implements OnInit {
    */
   public foundAndVisualizeUsers() {
     if (!this.to_visit) {
-      console.log("NO ES UNA VISITA--------------------");
       //El usuario logueado visualiza su perfil
 
       this.setUser();
     } else {
       //El usuario logueado busca el perfil de otro en el dashboard
-      console.log("ES UNA VISITA--------------------");
       if (this.user_nickName_to_visit != undefined && this.user_nickName_to_visit != null) {
         if (this.user_nickName_to_visit.trim() != "") {
-          this.userService.getUserDB(this.user_nickName_to_visit).then((data: any) => {
+          this.userService.getUserDB(this.user_nickName_to_visit).then(((data: any) => {
             this.user = data;
-
-            (error: any) => {
-              // Manejo de errores si la petición a la API falla
-              Swal.fire('User not found', 'Message', 'info');
-            }
+          }), (error) => {
+            Swal.fire('User not found', 'Message', 'info');
+            return;
           });
           this.isFollowed();
           /*let user_recived = this.userService.getUserDBByNickName(this.user_nickName);
@@ -177,62 +172,21 @@ export class UserDashboardComponent implements OnInit {
    * Verifica si el usuario actual sigue al usuario del cual se muestra el perfil
    */
   async isFollowed() {
-    console.log("user a mostrar perfil: " + this.user.email);
-    console.log("user a visitar: " + this.user_nickName_to_visit);
-    console.log("user de la sesión actual: " + this.nick_current_user);
-
     let data_CurrentUser: Iuser;
     (this.userService.getUserDB(this.nick_current_user)).then((result: any) => {
       if (result != null && result != undefined) {
-        console.log("result user: " + result.email);
         data_CurrentUser = result;
         let array: Array<string> = data_CurrentUser.profile.follows;
         this.is_followed = array.includes(this.user_nickName_to_visit);
-        console.log("seguido: " + this.is_followed);
       } else {
-
-        console.log("undefined loco");
         Swal.fire('It wasn\'t possible to follow this user', 'Message', 'info');
       }
     });
 
-    /*
-    this.userService.getUserDB(this.nick_current_user).then((result:any) => {
-      data_CurrentUser = result;
-      let array:Array<string>=data_CurrentUser.profile.follows;
-      this.is_followed=array.includes(this.user.profile.nickName);
-      console.log("seguido: "+this.is_followed);
-    }).catch((err:any) => {
-      Swal.fire('It wasn\'t possible to follow this user', 'Message', 'info');
-    });
-    
-    /*.subscribe((data: any) => {
-      data_CurrentUser = data;
-    },
-      (error: any) => {
-        // Manejo de errores si la petición a la API falla
-        //Swal.fire('User not found', 'Message', 'info');
-      }
-    ).then((result: any) => {
-      let array:Array<string>=data_CurrentUser.profile.follows;
-      this.is_followed=array.includes(this.user.profile.nickName);
-    });*/
+
   }
 
   followUser() {
-    /*console.log("vas a seguir a: "+this.user.profile.nickName);
-    if(this.profileService.followUser(this.nick_current_user,this.user_nickName_to_visit)==null){
-      Swal.fire('It wasn\'t possible to follow this user', 'Message', 'info');
-    }else{
-      this.is_followed = true;
-      let userRecived = this.loginService.updateCurrentUser();
-      //this.loginService.setUser(this.getUser(this.nick_current_user));
-      this.snack.open('Now, you have another connection', '',{
-        duration:3000
-      })
-      //Swal.fire('Now, you have another connection', 'Message', 'success');
-    }*/
-    console.log("vas a seguir a: " + this.user.profile.nickName);
     this.profileService.followUser(this.nick_current_user, this.user_nickName_to_visit).then(response => {
       if (response == null) {
         Swal.fire('It wasn\'t possible to follow this user', 'Message', 'info');
@@ -250,8 +204,8 @@ export class UserDashboardComponent implements OnInit {
   }
 
   stopFollowing() {
-    console.log("vas a dejar de seguir a: " + this.user.profile.nickName + "|" + this.user_nickName_to_visit
-      + " desde: " + this.nick_current_user);
+    /*console.log("vas a dejar de seguir a: " + this.user.profile.nickName + "|" + this.user_nickName_to_visit
+      + " desde: " + this.nick_current_user);*/
     this.profileService.stopFollowingUser(this.nick_current_user, this.user_nickName_to_visit).then(response => {
       if (response == null) {
         Swal.fire('It wasn\'t possible to stop following this user', 'Message', 'info');

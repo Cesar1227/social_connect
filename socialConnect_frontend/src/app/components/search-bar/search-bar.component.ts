@@ -17,7 +17,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   buscar(){
-    console.log("[search-bar] A buscar: "+this.value)
     this.paginaEmitter.emit(this.value);
   }
 

@@ -5,7 +5,8 @@
                 <mat-card class="mat-card">
                     <mat-card-content class="col-md-4 " rowHeight="200px" id="mat-content-img">               
                         <div class="">
-                            <img mat-card-image src= '../../../../assets/img-profile-svg.svg' alt="" width="200px" height="200px"> 
+                            <img *ngIf='this.user.profile.urlPhoto==null || this.user.profile.urlPhoto==""' mat-card-image src= '../../../../assets/img-profile-svg.svg' alt="Imagen de perfil por defecto" width="200px" height="200px"> 
+                            <img *ngIf='this.user.profile.urlPhoto!=null && this.user.profile.urlPhoto!=""' mat-card-image [srcset]= "this.user.profile.urlPhoto" alt="Imagen de perfil del usuario" width="170px" height="200px"> 
                         </div>
                     </mat-card-content>
                     <mat-card-content *ngIf="this.user!=null" class="col-md-8 mat-content pl20" rowHeight="200px" id="mat-content-info">
@@ -13,7 +14,16 @@
                             <mat-label>{{this.user.name}} {{this.user.lastName}}</mat-label>
                         </div>
                         <div class="row pt10 mt10">
-                            <mat-label>{{this.user.profile.nickName}}</mat-label>
+                            <mat-label>@{{this.user.profile.nickName}}</mat-label>
+                        </div>
+                        <div class="row pt10 mt10">
+                            <mat-label><mat-icon class="mr10">mail</mat-icon>{{this.user.email}}</mat-label>
+                        </div>
+                        <div class="row pt10 mt10">
+                            <mat-label><mat-icon class="mr10">call</mat-icon>{{this.user.profile.cellphone}}</mat-label>
+                        </div>
+                        <div class="row pt10 mt10">
+                            <mat-label><mat-icon class="mr10">diversity_3</mat-icon>{{this.user.profile.follows.length}}</mat-label>
                         </div>
                         <div *ngIf="!isCurrentUser()" class="row pt20">
                             <button *ngIf="!is_followed"  mat-raised-button color="primary" width="40px" (click)="followUser()">FOLLOW</button>

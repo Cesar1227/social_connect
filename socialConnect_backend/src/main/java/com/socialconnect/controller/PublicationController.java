@@ -30,9 +30,6 @@ public class PublicationController {
 	
 	@PostMapping
 	public Publication savePublication(@RequestBody Publication publication) throws Exception{
-		//System.out.println(publication.getUser().getId());
-		//System.out.println(publication.getUser().getEmail());
-		System.out.println("LLega una petición para guardar un post");
 		if(publication.getUser()!=null) {
 			if(publication.getUser().getEmail()!=null) {
 				User user = userService.getUser(publication.getUser().getEmail());
@@ -54,11 +51,10 @@ public class PublicationController {
 	public List<Publication> getPublications(@PathVariable("userId") Long id) {
 		User localUser = new User();
 		localUser.setId(id);
-		List<Publication> publicaciones = publicationsService.getPublications(localUser);
-		for(Publication p : publicaciones) {
+		/*for(Publication p : publicaciones) {
 			System.out.println(p.getBody()+" - "+p.getUser().getId());
-		}
-		return publicaciones;
+		}*/
+		return publicationsService.getPublications(localUser);
 	}
 	
 	@DeleteMapping("/{publicationId}")

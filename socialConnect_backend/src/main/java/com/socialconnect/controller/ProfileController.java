@@ -29,6 +29,12 @@ public class ProfileController<T> {
     @Autowired
     private S3Service s3Service;
 
+    @PostMapping("/update")
+    ResponseEntity updateUser(@RequestBody Profile profile){
+        Profile profileRecived = profileService.saveProfile(profile);
+        return ResponseEntity.ok(profileRecived);
+    }
+
     @PostMapping("/setPhoto")
     ResponseEntity setPhoto(@RequestParam("file") MultipartFile file, @RequestParam("nickName") String nickName){
         Profile profileRecived = profileService.setPhoto(file,nickName);

@@ -13,4 +13,9 @@ public interface ProfileService {
 	String uploadPhoto(MultipartFile file);
 	boolean deletePhoto(String key, String nickName);
 
+	Profile setUrlPhoto(Profile profile);
+
+	public Profile saveProfile(Profile profile);
+
+	public Profile updateProfile(Profile profile);
 }

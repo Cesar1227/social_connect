@@ -1,5 +1,6 @@
 package com.socialconnect.model;
 
+import java.io.File;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -17,11 +18,14 @@ public class Profile {
 	private String nickName;
 	
 	private String cellphone;
-	private String profile;
+	private String keyProfile;
+
+	@Transient
+	private File profile;
 	private List<String> follows;
 
 	@Transient
-	private String urlPhoto;
+	private String urlPhoto = new S3Service().getObjectUrl(this.getKeyProfile());
 	
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -55,11 +59,19 @@ public class Profile {
 		this.cellphone = cellphone;
 	}
 
-	public String getProfile() {
+	public String getKeyProfile() {
+		return keyProfile;
+	}
+
+	public void setKeyProfile(String keyProfile) {
+		this.keyProfile = keyProfile;
+	}
+
+	public File getProfile() {
 		return profile;
 	}
 
-	public void setProfile(String profile) {
+	public void setProfile(File profile) {
 		this.profile = profile;
 	}
 

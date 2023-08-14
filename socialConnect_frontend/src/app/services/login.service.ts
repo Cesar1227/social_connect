@@ -53,8 +53,6 @@ export class LoginService {
   }
 
   public setUser(user:any){
-    //console.log("[login.service] user llegando"+user)
-    //console.log("[login.service] user cargando"+JSON.stringify(user))
     sessionStorage.setItem('user',JSON.stringify(user));
   }
 
@@ -79,12 +77,12 @@ export class LoginService {
 
   public updateCurrentUser(){
     this.userService.getUserDB(this.getUser().email).then((response:any) =>{
-      console.log("[login.service] user: "+response.email+"|"+response.profile.follows);
+      //console.log("[login.service] user: "+response.email+"|"+response.profile.follows);
       if(response!=null && response!=undefined){
         this.setUser(response);
         return response;
       }else{
-        console.log("Es null o undefined");
+        console.error("An error occurred updating the user");
       }
     });
     return null;

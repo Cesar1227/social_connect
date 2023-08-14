@@ -5,6 +5,7 @@ import { rejects } from 'assert';
 import { Iuser } from 'src/app/model/iuser';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-post',
@@ -32,46 +33,48 @@ export class CreatePostComponent implements OnInit {
   }
 
   changeFileChooser(event:any) {
-    console.log("Event chageFile: ",event.target.files);
+    //console.log("Event chageFile: ",event.target.files);
   }
 
   //Este metodo debe manejarse como un evento mediante un EventEmitter
   newPublication(){
+    if((this.publication.title==undefined && this.publication.body==undefined) || (this.publication.title=="" && this.publication.body=="") || (this.publication.title==null && this.publication.body==null)){
+      Swal.fire('Missing fields', 'You must fill in at least one field', 'info');
+      return;
+    }
     this.publication.date=this.hourPublication();
     //let user:any = localStorage.getItem('user');
     let user = this.loginService.getUser();
     this.publication.user.id = user.id;
     this.publication.user.email = user.email;
     //console.log(this.publication);
-    console.log("llamando al servicio publicación");
-    let userTest;
+    let publicationReci;
     this.userService.addPublication(this.publication).subscribe((data:any) => {
-      console.log("respuesta addPost: ",data);
-      this.loginService.getCurrentUser().then((user:any) =>{
+      //console.log("respuesta addPost: ",data);
+      this.loginService.getCurrentUser().then(async (user:any) =>{
         this.loginService.setUser(user);
-        console.log("[create-post] user return for actual-usuario: "+user.email);
         //this.loginService.setUser(this.userService.getUser(this.publication.user.email));
         //this.router.navigate(['/user/profile',user.profile.nickName]);
-
+        publicationReci = await data;
         //Actualizar bandeja de publicaciones
-
-        userTest = data;
       }),
       (error: any) => {
-        console.log(error);
+        console.error(error);
         this.snack.open('Post invalid, try again !!', 'Acept',{
-          duration:3000
+          duration:5000
         })
+        return;
       }
     })
-    console.log("[create-post] Aparece wey: "+userTest);
+    //Mandar aviso al padre para que recargue las publicaciones
+    Swal.fire('Post Added', 'Post added successfully', 'success');
   }
 
   private hourPublication(): string{
       // crea un nuevo objeto `Date`
     let today:Date = new Date();
     let date:Date = new Date();
-    console.log("fecha: ",date);
+    //console.log("fecha: ",date);
     
     // obtener la fecha y la hora
     let options:any={
@@ -80,10 +83,10 @@ export class CreatePostComponent implements OnInit {
     }
     let now = today.toLocaleString('es-es',{year:'numeric',month:'numeric', day:"numeric", 
                                             hour:"numeric", minute:"numeric", second:"numeric"});
-    console.log(now);
+    //console.log(now);
     now = now.replace('/','-');
     now = now.replace(',','');
-    console.log(now);
+    //console.log(now);
     return date.toUTCString();
     /*
         Resultado: 1/27/2020, 9:30:00 PM
@@ -91,10 +94,8 @@ export class CreatePostComponent implements OnInit {
   }
   
   onFileSelected(): any {
-    const inputNode: any = document.querySelector('#file');
-  
+    const inputNode: any = document.querySelector('#file'); 
     if (typeof (FileReader) !== 'undefined') {
-
       return new Promise((resolve,reject) =>{
         const reader = new FileReader();
         reader.onload = (e: any) => {
@@ -112,6 +113,10 @@ export class CreatePostComponent implements OnInit {
     }).catch((err:any) => {
       
     });
+  }
+
+  uploadImg(event:any){
+    this.publication.picture = event.target.files[0];
   }
 
   private _arrayBufferToBase64( buffer:any ) {

@@ -3,20 +3,15 @@ package com.socialconnect.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.socialconnect.model.Profile;
 import com.socialconnect.model.User;
 import com.socialconnect.services.ProfileService;
 import com.socialconnect.services.UserService;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/users")
@@ -38,11 +33,32 @@ public class UserController {
 			return null;
 		}else {
 			user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+			user.setEnabled(true);
 			User userCreated = userService.saveUser(user, user.getProfile());
+
 			userCreated.setPassword(null);
+			//System.out.println("Usuario: "+user.toString());
+			//User userCreated = user;
 			return userCreated;
 		}
-		
+	}
+
+	@PostMapping("/updateUser")
+	public ResponseEntity updateUser(@RequestBody User user) throws Exception {
+		System.out.println("Entrando a actualizar usuario");
+		if(user.getProfile()==null) {
+			return ResponseEntity.status(401).body(null);
+		}else {
+			/*if(user.getPassword()!=null && user.getPassword()!=""){
+				user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+			}*/
+			User userUpdated = userService.updateUser(user);
+			if(userUpdated==null){
+				return ResponseEntity.notFound().build();
+			}
+			userUpdated.setPassword(null);
+			return ResponseEntity.ok(userUpdated);
+		}
 	}
 	
 	/*@GetMapping("/{email}")
@@ -59,11 +75,14 @@ public class UserController {
 			Profile profile= profileService.getUserByNickName(keyFoundUser);
 			if(profile!=null) {
 				//user = userService.getUserByNickName(keyFoundUser);
-				System.out.println("[UserController] este es mi perfil: "+profile.getUser().getUsername());
+				System.out.println("[UserController] este es mi perfil: "+profile.getUser().getUsername()+" - "+profile.getUrlPhoto());
 				user=profile.getUser();
 			}else {
-				return user;
+				//Aqui debe ir ResponseEntity(Not found)
+				return null;
 			}
+		}else{
+			profileService.setUrlPhoto(user.getProfile());
 		}
 		user.setPassword(null);
 		return user;

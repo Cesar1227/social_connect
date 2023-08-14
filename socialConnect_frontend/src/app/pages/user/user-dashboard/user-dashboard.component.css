@@ -7,6 +7,10 @@ app-publications{
     font-size: var(--font-size-main);
 }
 
+.mat-card-image{
+    margin-top: 10px !important;
+}
+
 .mat-content{
     text-align: center;
     font-size: var(--font-size-main);

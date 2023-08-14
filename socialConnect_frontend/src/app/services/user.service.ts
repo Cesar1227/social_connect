@@ -4,6 +4,8 @@ import baseURL from './helper';
 import Swal from 'sweetalert2';
 import { Cuser, Iuser } from '../model/iuser';
 import { lastValueFrom } from 'rxjs';
+import { ProfileService } from './profile.service';
+import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +14,33 @@ export class UserService {
 
   //private user:Iuser;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private profileService:ProfileService) {
   }
 
   public addUser(user: any) {
     return this.httpClient.post(`${baseURL}/users/createUser`, user);
+  }
+
+  public updateUser(user: any) {
+    return this.httpClient.post(`${baseURL}/users/updateUser`, user);
+  }
+
+  public async addUserWithPicture(user:any, profilePicture:File, option="add"){
+    let data2$;
+    if(option=="add"){
+      //console.log("va por add");
+      data2$ = this.addUser(user);
+      
+    }else{
+      //console.log("va por update");
+      data2$ = this.updateUser(user);
+    }
+    let data2 = await lastValueFrom(data2$);
+    let profile = await this.profileService.setPictureProfile(profilePicture,user.profile.nickName);
+    let response:Map<any,any> = new Map<any,any>();
+    response.set("user",data2);
+    response.set("profile",profile);
+    return response;
   }
 
   private getUser(email:string){
@@ -39,7 +63,7 @@ export class UserService {
     //return this.getUser(email);
     let data2$ = this.getUser(email);
     let data2 = await lastValueFrom(data2$);
-    console.log("[user.service] Usuario devuelvo lastValue: "+data2.valueOf());
+    //console.log("[user.service] Usuario devuelvo lastValue: "+data2.valueOf());
     return data2;
 
    /* let data;

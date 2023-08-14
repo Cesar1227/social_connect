@@ -17,9 +17,9 @@
             <input type="date" matInput [(ngModel)]="publication.date" name="post_date" sele>
         </span>
         
-        <div class="full-width">
+        <div class="full-width" matTooltip="This function will be enabled soon">
             <mat-label>Picture</mat-label>
-            <button type="button" mat-raised-button (click)="fileInput.click()">Choose Picture</button>
+            <button disabled="true" type="button" mat-raised-button (click)="fileInput.click()" >Choose Picture</button>
             <input hidden (change)="cargaImg()" #fileInput type="file" id="file">
             <!--<input type="file" multiple="multiple" (change)="changeFileChooser($event)" name="picture" id="picture">-->
         </div>

@@ -1,6 +1,7 @@
 package com.socialconnect.services.impl;
 
 import com.socialconnect.model.S3Service;
+import com.socialconnect.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public Profile getUserByNickName(String nickName) {
 		Profile profile = profileRepository.findBynickName(nickName);
+		profile.setUrlPhoto(s3Service.getObjectUrl(profile.getKeyProfile()));
 		return profile;
 	}
 
@@ -43,6 +45,7 @@ public class ProfileServiceImpl implements ProfileService {
 				follows.add(nickNameToFollow);
 				profile.setFollows(follows);
 				this.profileRepository.save(profile);
+				profile.setUrlPhoto(s3Service.getObjectUrl(profile.getKeyProfile()));
 				return profile;
 			}
 		}
@@ -64,6 +67,7 @@ public class ProfileServiceImpl implements ProfileService {
 				if(removed) {
 					profile.setFollows(follows);
 					this.profileRepository.save(profile);
+					profile.setUrlPhoto(s3Service.getObjectUrl(profile.getKeyProfile()));
 					return profile;
 				}else {
 					return null;
@@ -81,7 +85,7 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		String url = s3Service.getObjectUrl(key);
 		Profile profile = profileRepository.findBynickName(nickName);
-		profile.setProfile(key);
+		profile.setKeyProfile(key);
 		profile.setUrlPhoto(url);
 		return profileRepository.save(profile);
 	}
@@ -95,8 +99,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public boolean deletePhoto(String key, String nickName) {
 		try {
 			Profile profile = profileRepository.findBynickName(nickName);
-			profile.setUrlPhoto("");
-			profile.setProfile(null);
+			profile.setKeyProfile(null);
 			profile = profileRepository.save(profile);
 			s3Service.deleteObject(key);
 		}catch (Exception e) {
@@ -104,4 +107,39 @@ public class ProfileServiceImpl implements ProfileService {
 		}
 		return true;
 	}
+
+	@Override
+	public Profile setUrlPhoto(Profile profile) {
+		profile.setUrlPhoto(s3Service.getObjectUrl(profile.getKeyProfile()));
+		return profile;
+	}
+
+	@Override
+	public Profile saveProfile(Profile profile) {
+		Profile profileLocal = profileRepository.findBynickName(profile.getNickName());
+		if(profileLocal==null){
+			return null;
+		}
+		profileLocal.setNickName(profile.getNickName());
+		profileLocal.setCellphone(profile.getCellphone());
+
+		profileLocal = profileRepository.save(profileLocal);
+		//profile.setKeyProfile(s3Service.putObject((MultipartFile) profile.getProfile()));
+		profileLocal.setUrlPhoto(s3Service.getObjectUrl(profileLocal.getKeyProfile()));
+		return profileLocal;
+	}
+
+	@Override
+	public Profile updateProfile(Profile profile) {
+		Profile profileLocal = profileRepository.findBynickName(profile.getNickName());
+		if(profileLocal==null){
+			return null;
+		}
+		profileLocal.setNickName(profile.getNickName());
+		profileLocal.setCellphone(profile.getCellphone());
+		profileLocal.setUrlPhoto(s3Service.getObjectUrl(profile.getKeyProfile()));
+		return profileLocal;
+	}
+
+
 }

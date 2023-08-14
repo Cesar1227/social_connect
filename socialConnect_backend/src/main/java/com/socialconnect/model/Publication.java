@@ -1,20 +1,11 @@
 package com.socialconnect.model;
 
+import java.io.File;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Publications")
@@ -27,12 +18,21 @@ public class Publication {
 	private Date date;
 	private String title;
 	private String body;
-	private String picture;
+	private String keyPicture;
+
+	@Transient
+	private File picture;
+
+	@Transient
+	private String urlPicture;
+
+	@Column(columnDefinition = "BOOLEAN DEFAULT true")
+	private boolean visible;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	public Publication() {
 		
 	}
@@ -78,12 +78,35 @@ public class Publication {
 		this.title = title;
 	}
 
-	public String getPicture() {
+	public String getKeyPicture() {
+		return keyPicture;
+	}
+
+	public void setKeyPicture(String keyPicture) {
+		this.keyPicture = keyPicture;
+	}
+
+	public File getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(File picture) {
 		this.picture = picture;
 	}
-	
+
+	public String getUrlPicture() {
+		return urlPicture;
+	}
+
+	public void setUrlPicture(String urlPicture) {
+		this.urlPicture = urlPicture;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 }

@@ -13,7 +13,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(public loginService:LoginService, public router:Router) { }
 
+  public userName:string | null = null;
+
   ngOnInit(): void {
+    this.userName=this.loginService.getUser().name;
   }
 
   public logout(){
@@ -24,7 +27,6 @@ export class NavbarComponent implements OnInit {
   setUser_viewProfile(){
     let user = this.loginService.getUser();
     user = user;
-    console.log(user);
     sessionStorage.setItem('userView',JSON.stringify(user));
     this.router.navigate(['user/profile',user.profile.nickName]);
   }

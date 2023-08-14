@@ -73,12 +73,12 @@ public class MySecurityConfig {
                 .cors()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/generate-token","/users/createUser").permitAll()
+                .requestMatchers("/generate-token","/users/createUser","/profile/setPhoto").permitAll()
                 //.anyRequest().permitAll()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
                 
-                http.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
+        http.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
                 
                
        http.authenticationProvider(authenticationProvider());

@@ -2,6 +2,6 @@
     <!--<mat-label>Clearable input</mat-label>-->
     <input matInput type="text" [(ngModel)]="value" placeholder="Discover People">
     <button *ngIf="true" matSuffix mat-icon-button aria-label="Clear" (click)="buscar()">
-        <mat-icon>search</mat-icon>
+        <mat-icon matTooltip="search user">search</mat-icon>
     </button>
 </mat-form-field>

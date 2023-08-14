@@ -4,8 +4,15 @@
             <mat-card>
                 <div class = "col-md-6 offset-md-3">
                     <div class = "container text-center">
-                        <img src = "../../../assets/add-user.png" alt = "" width = "100" height="100">
+                        <button type="button" mat-raised-button (click)="fileInput.click()"><img [src] = '"../../../assets/add-user.png"' alt = "User Profile Picture" width = "100" height="100"></button>
+                        <input hidden (change)="uploadImg($event)" #fileInput type="file" id="file">
                     </div>
+                    <!--<div class="full-width">
+                        <mat-label>Picture</mat-label>
+                        <button type="button" mat-raised-button (click)="fileInput.click()">Choose Picture</button>
+                        
+                        <input type="file" multiple="multiple" (change)="changeFileChooser($event)" name="picture" id="picture">
+                    </div>-->
                     
                     <h1 class = "text-center">Sign Up here</h1>
                     

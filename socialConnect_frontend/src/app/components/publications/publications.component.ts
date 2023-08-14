@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Iuser } from 'src/app/model/iuser';
+import { Cuser } from 'src/app/model/iuser';
 
 @Component({
   selector: 'app-publications',
@@ -26,7 +28,7 @@ export class PublicationsComponent implements OnInit {
     publications: Array()
   }
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
 

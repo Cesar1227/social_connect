@@ -35,3 +35,4 @@ build/
 
 ### VS Code ###
 .vscode/
+socialConnect_backend/src/main/resources/application.properties

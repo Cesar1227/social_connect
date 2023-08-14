@@ -1,8 +1,11 @@
 package com.socialconnect.services.impl;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
+import com.socialconnect.model.Profile;
+import com.socialconnect.model.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import com.socialconnect.model.User;
 import com.socialconnect.repository.PublicationsRepository;
 import com.socialconnect.repository.UserRepository;
 import com.socialconnect.services.PublicationsService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PublicationServiceImpl implements PublicationsService {
@@ -21,6 +25,9 @@ public class PublicationServiceImpl implements PublicationsService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private S3Service s3Service;
+
 	public PublicationServiceImpl() {
 		// TODO Auto-generated constructor stub
 	}
@@ -28,7 +35,7 @@ public class PublicationServiceImpl implements PublicationsService {
 	@Override
 	public Publication savePublication(Publication publication) throws Exception {
 		if(publication.getUser().getEmail()==null || publication.getUser().getId()==null) {
-			System.out.println("La publicación no tiene un user_email ni user_id");
+			System.err.println("La publicación no tiene un user_email ni user_id");
 			return publication;
 		}else {
 			if(publication.getUser().getEmail()!=null) {
@@ -38,6 +45,11 @@ public class PublicationServiceImpl implements PublicationsService {
 				Optional<User> user = userRepository.findById(publication.getUser().getId());
 				publication.setUser(user.get());
 			}
+			if(publication.getPicture()!=null && publication.getPicture().isFile()){
+				publication.setKeyPicture(s3Service.putObject((MultipartFile) publication.getPicture()));
+				publication.setUrlPicture(s3Service.getObjectUrl(publication.getKeyPicture()));
+			}
+
 			Publication publicationLocal = publicationsRepository.save(publication);
 			return publicationLocal;
 		}
@@ -46,6 +58,7 @@ public class PublicationServiceImpl implements PublicationsService {
 	@Override
 	public Publication getPublication(Long id) {
 		Publication publication = publicationsRepository.findByid(id);
+		publication.setUrlPicture(s3Service.getObjectUrl(publication.getKeyPicture()));
 		publication.setUser(publicationsRepository.findByid(id).getUser());
 		//System.out.println(publication.getUser().getEmail());
 		return publication;
@@ -53,13 +66,19 @@ public class PublicationServiceImpl implements PublicationsService {
 
 	@Override
 	public List<Publication> getPublications(User user) {
-		List<Publication> publicaciones = publicationsRepository.findAllByuser(user);
-		return publicaciones;
+		List<Publication> publications = publicationsRepository.findAllByuser(user);
+		for(Publication p :publications){
+			if(p.getKeyPicture()!=null)
+				p.setUrlPicture(s3Service.getObjectUrl(p.getKeyPicture()));
+		}
+		return publications;
 	}
 
 	@Override
 	public void deletePublication(long id) {
 		publicationsRepository.deleteById(id);
+		Publication publicationLocal = publicationsRepository.findByid(id);
+		s3Service.deleteObject(publicationLocal.getKeyPicture());
 	}
 
 	@Override
