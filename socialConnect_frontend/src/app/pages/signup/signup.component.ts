@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
   }
 
   formSubmit() {
-    console.log(this.user);
+    //console.log(this.user);
     
     if (this.user.profile.nickName == '' || this.user.profile.nickName == null) {
       this.snack.open('Username is required', 'Accept', {
@@ -72,7 +72,7 @@ export class SignupComponent implements OnInit {
     }else{
       this.userServices.addUser(this.user).subscribe(
         ((data) => {
-          console.log(data);
+          //console.log(data);
           Swal.fire('User saved', 'User saved successfully', 'success');
           /*this.snack.open('User save successfully','Accept',{
             duration : 3000,

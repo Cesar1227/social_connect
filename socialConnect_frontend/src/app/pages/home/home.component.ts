@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
   constructor(loginService:LoginService, router:Router) {
     if (loginService.getUser()!=null) {
       router.navigate(['/dashboard']);
+    }else{
+      router.navigate(['/login']);
     }
    }
 

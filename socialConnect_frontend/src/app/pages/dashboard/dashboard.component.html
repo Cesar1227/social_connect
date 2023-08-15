@@ -1,11 +1,19 @@
 <div class="bootstrap-wrapper">
     <div class="container">
         <div class="row">
-            <div class = "col-md-12">
+            <div class="col-md-12">
                 <app-search-bar (paginaEmitter)="buscarUser($event)"></app-search-bar>
                 <app-create-post *ngIf=true></app-create-post>
-                <app-user-dashboard *ngIf="discover_people" [createPost_isVisible]="createPost_isVisible" [to_visit]=true [nick_current_user]="nick_current_user" [user_nickName_to_visit]="user_nickName"></app-user-dashboard>
+                <app-user-dashboard *ngIf="discover_people" [createPost_isVisible]="createPost_isVisible"
+                    [to_visit]=true [nick_current_user]="nick_current_user"
+                    [user_nickName_to_visit]="user_nickName"></app-user-dashboard>
                 <!--<app-publications></app-publications>-->
+                <div class="text-center mt-r2 next-features">
+                    <mat-label class="text-center">°°°</mat-label>
+                    <mat-divider class=""></mat-divider>
+                    <mat-label class="text-center">Coming soon the publications of the people you follow
+                        here</mat-label>
+                </div>
             </div>
         </div>
     </div>

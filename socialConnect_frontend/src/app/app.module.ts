@@ -17,6 +17,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -61,7 +62,8 @@ import { VisitProfileComponent } from './components/visit-profile/visit-profile.
     MatIconModule,
     MatMenuModule,
     MatGridListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDividerModule
   ],
   providers: [
     {

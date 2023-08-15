@@ -28,7 +28,7 @@ public class SocialConnectApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception{
-		User user = new User();
+		/*User user = new User();
 		user.setEmail("cesar@gmail.com");
 		user.setLastName("Bonilla");
 		user.setName("Cesar");
@@ -46,7 +46,7 @@ public class SocialConnectApplication implements CommandLineRunner {
 		Publication publication = new Publication();
 		publication.setBody("HOLA, ESTA ES MI PRIMER PUBLICACIÓN");
 		publication.setDate(new Date());
-		publication.setUser(userSaved);
+		publication.setUser(userSaved);*/
 		//Publication publicationSaved = publicationsService.savePublication(publication);
 		//System.out.println("Publicación guardada: "+publicationSaved.getId()+ " por User: "+publication.getUser().getProfile().getNickName());
 	}

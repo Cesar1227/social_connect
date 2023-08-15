@@ -1,0 +1,9 @@
+.next-features{
+    display: grid;
+}
+
+.next-features > mat-label{
+    margin-top: 4%;
+    margin-bottom: 4%;
+    color: #404040cc;
+}

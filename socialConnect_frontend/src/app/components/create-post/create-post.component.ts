@@ -68,6 +68,7 @@ export class CreatePostComponent implements OnInit {
     })
     //Mandar aviso al padre para que recargue las publicaciones
     Swal.fire('Post Added', 'Post added successfully', 'success');
+    this.router.navigate(["/dashboard"]);
   }
 
   private hourPublication(): string{

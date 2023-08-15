@@ -15,8 +15,9 @@ export class NavbarComponent implements OnInit {
 
   public userName:string | null = null;
 
-  ngOnInit(): void {
-    this.userName=this.loginService.getUser().name;
+  async ngOnInit(): Promise<void> {
+    let user = await this.loginService.getUser();
+    this.userName= user.name;
   }
 
   public logout(){
