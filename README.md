@@ -1,12 +1,11 @@
-# social_connect
+# SocialConnect
 * Red Social implementada con Java, SpringBoot, Spring Security, JWT, Spring Data JPA, MySQL, Postman, AWS S3, AWS Lambda, Azure DataBase, Azure AppServices y Angular
 
 
 ### Registrate y prueba la versión BETA
 URL: https://wonderful-tree-032fd7910.3.azurestaticapps.net/
 
-## Social Connect
-</br>
+<br>
 * Login
 <img src="./doc/login.png" style="width: 100%; height: 80%"/>
 
