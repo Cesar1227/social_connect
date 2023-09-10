@@ -7,22 +7,22 @@ URL: https://wonderful-tree-032fd7910.3.azurestaticapps.net/
 
 </br>
 
-* Registro
+* #### Registro
 <img src="./doc/signUp.png" style="width: 100%; height: 80%"/>
 
 </br>
 
-* Login
+* #### Login
 <img src="./doc/login.png" style="width: 100%; height: 80%"/>
 
 </br>
 
-* Perfil
+* #### Perfil
 <img src="./doc/profile.png" style="width: 100%; height: 80%"/>
 
 </br>
 
-* Dashboard (Barra de busqueda)
+* #### Dashboard (Barra de busqueda)
 <img src="./doc/searchBar.png" style="width: 100%; height: 40%"/>
 
 </br>
