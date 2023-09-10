@@ -5,15 +5,18 @@
 ### Registrate y prueba la versión BETA
 URL: https://wonderful-tree-032fd7910.3.azurestaticapps.net/
 
-<br>
+</br>
+
 * Login
 <img src="./doc/login.png" style="width: 100%; height: 80%"/>
 
 </br>
+
 * Perfil
 <img src="./doc/profile.png" style="width: 100%; height: 80%"/>
 
 </br>
+
 * Dashboard (Barra de busqueda)
 <img src="./doc/searchBar.png" style="width: 100%; height: 40%"/>
 
