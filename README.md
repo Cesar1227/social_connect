@@ -25,3 +25,7 @@ URL: https://wonderful-tree-032fd7910.3.azurestaticapps.net/
 * Dashboard (Barra de busqueda)
 <img src="./doc/searchBar.png" style="width: 100%; height: 40%"/>
 
+</br>
+
+#### Nota
+* El código completo de la aplicación ha sido trasladado a otro repositorio, pero aún puedes registrarte y explorar.
