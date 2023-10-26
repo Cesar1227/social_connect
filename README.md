@@ -28,4 +28,4 @@ URL: https://wonderful-tree-032fd7910.3.azurestaticapps.net/
 </br>
 
 #### Nota
-* El código completo de la aplicación ha sido trasladado a otro repositorio, pero aún puedes registrarte y explorar.
+* El código completo de la aplicación ha sido trasladado a otro repositorio, pero puedes registrarte y explorar haciendo click en el link https://wonderful-tree-032fd7910.3.azurestaticapps.net/.
